@@ -19,8 +19,9 @@ function Navbar() {
         className="search"
         type="text"
         placeholder="Search your movies here"
-        onChange={(event)=>handleSearch(event.target.value)}
+        onChange={()=>handleSearch(event)}
       ></input>
+      <h1>{search}</h1>
       <img
         className="avatar"
         src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"

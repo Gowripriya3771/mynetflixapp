@@ -17,8 +17,8 @@ function MovieDetails() {
       </p>
       <button>Play</button>
       <button> + My List</button>
-      <img>Like icon</img>
-      <img>Dislike icon</img>
+      {/* <img>Like icon</img>
+      <img>Dislike icon</img> */}
     </div>
   );
 }
