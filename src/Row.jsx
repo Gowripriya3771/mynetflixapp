@@ -1,25 +1,24 @@
 import { useEffect, useState } from "react";
-import axios from "./axios";
 import "./Row.css";
 import { useNavigate } from "react-router-dom";
+import axios from "./axios";
+import AddFavourites from "./AddFavourites";
 
 export const base_url = "https://image.tmdb.org/t/p/original/";
 
 function Row({ title, fetchUrl, isLargeRow }) {
-  function handleClick(){
-    navigate("/details")
+  function handleClick() {
+    navigate("/details");
   }
-  const [movies, setMovies] = useState([]);
+
   const navigate = useNavigate();
   //code snippets which run on some conditions
-  // const filteredMovies = movies.filter((movie) => movie.includes(search));
-
+  const [movies, setMovies] = useState([]);
   useEffect(() => {
     async function fetchData() {
       const request = await axios.get(fetchUrl);
       console.log(request.data.results);
       setMovies(request.data.results);
-
       return request.data.results;
     }
     fetchData();
@@ -32,16 +31,17 @@ function Row({ title, fetchUrl, isLargeRow }) {
       <div className="row-posters">
         {movies.map((movie) => (
           <img
-            className={`row-poster ${isLargeRow && "row-posterLarge"}`}
-            key={movie.id}
-            //isLarge is for netflix originals which is needed to be displayed in a portrait.
-            src={`${base_url}${
-              isLargeRow ? movie.poster_path : movie.backdrop_path
-            }`}
-            alt={movie.name}
-            onClick={handleClick}
-          />
+          className={`row-poster ${isLargeRow && "row-posterLarge"}`}
+          key={movie.id}
+          //isLarge is for netflix originals which is needed to be displayed in a portrait.
+          src={`${base_url}${
+            isLargeRow ? movie.poster_path : movie.backdrop_path
+          }`}
+          alt={movie.name}
+          onClick={handleClick}
+        ></img>
         ))}
+        <div className="addFav"> <AddFavourites/></div>
       </div>
     </div>
   );

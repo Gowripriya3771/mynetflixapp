@@ -1,13 +1,11 @@
 
-import { useState } from "react";
 import "./Navbar.css";
 
-function Navbar() {
-
-  const [search, setSearch] = useState("");
-  function handleSearch(event){
-    setSearch(event.target.value)
-  }
+function Navbar(props) {
+  
+  // function handleSearch(event) {
+  //   setSearch(event.target.value);
+  // }
   return (
     <div className="navbar">
       <img
@@ -18,10 +16,11 @@ function Navbar() {
       <input
         className="search"
         type="text"
+        value={props.value}
         placeholder="Search your movies here"
-        onChange={()=>handleSearch(event)}
+       onChange={(event)=>props.setSearch(event.target.value)}
       ></input>
-      <h1>{search}</h1>
+      <h1>{props.search}</h1>
       <img
         className="avatar"
         src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
