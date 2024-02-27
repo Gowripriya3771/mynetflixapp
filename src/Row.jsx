@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import "./Row.css";
 import { useNavigate } from "react-router-dom";
 import axios from "./axios";
-import AddFavourites from "./AddFavourites";
+import MovieDetails from "./MovieDetails";
 
 export const base_url = "https://image.tmdb.org/t/p/original/";
 
 function Row({ title, fetchUrl, isLargeRow }) {
-  function handleClick() {
-    navigate("/details");
+  function handleClick(id) {
+    navigate(`/details/:${id}`);
   }
 
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
       setMovies(request.data.results);
       return request.data.results;
     }
+
     fetchData();
   }, [fetchUrl]);
 
@@ -31,17 +32,21 @@ function Row({ title, fetchUrl, isLargeRow }) {
       <div className="row-posters">
         {movies.map((movie) => (
           <img
-          className={`row-poster ${isLargeRow && "row-posterLarge"}`}
-          key={movie.id}
-          //isLarge is for netflix originals which is needed to be displayed in a portrait.
-          src={`${base_url}${
-            isLargeRow ? movie.poster_path : movie.backdrop_path
-          }`}
-          alt={movie.name}
-          onClick={handleClick}
-        ></img>
+            key={movie.id}
+            className={`row-poster ${isLargeRow && "row-posterLarge"}`}
+            //isLarge is for netflix originals which is needed to be displayed in  portrait.
+            src={`${base_url}${
+              isLargeRow ? movie.poster_path : movie.backdrop_path
+            }`}
+            alt={movie.name}
+            onClick={() => handleClick(`${movie.id}`)}
+          ></img>
+
+          //here in another div we can give the add favourites on hover and on click add favorites is added
+          //check why not working
+
+          // <AddFavourites onClick={props.handlefavclick(movie)}/>
         ))}
-        <div className="addFav"> <AddFavourites/></div>
       </div>
     </div>
   );

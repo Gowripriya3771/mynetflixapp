@@ -34,3 +34,6 @@
   transform: scale(1.08);
   padding: 10px;
 }
+.addFavourites{
+  display: none;
+}

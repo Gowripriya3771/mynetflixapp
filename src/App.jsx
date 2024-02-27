@@ -7,10 +7,11 @@ import Player from "./Player";
 function App() {
   return (
     <div className="app">
+      {/* Adding routes */}
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/details" element={<MovieDetails />} />
+          <Route path="/details/:id" element={<MovieDetails />} />
           <Route path="/player" element={<Player />} />
         </Routes>
       </Router>

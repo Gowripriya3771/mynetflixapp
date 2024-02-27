@@ -3,8 +3,8 @@ import Banner from "./Banner";
 import Row from "./Row";
 import requests from "./requests";
 import "./Home.css";
-import { useEffect, useState } from "react";
-import axios from "./axios";
+import { useState } from "react";
+
 import AddFavourites from "./AddFavourites";
 
 function Home() {
@@ -27,14 +27,13 @@ function Home() {
     <div>
       <Navbar search={search} setSearch={setSearch} />
       <Banner />
-      {/* Nav */}
-      {/* Banner */}
+
       {/* for each row the title and the url is passed */}
       <Row
         title="NETFLIX ORIGINALS"
         fetchUrl={fetchUrl[0]}
         isLargeRow={true}
-        favComponents={AddFavourites}
+        // favComponents={AddFavourites}
         // movies={movies}
       />
       <Row title="Trending Now" fetchUrl={fetchUrl[1]} />
@@ -45,6 +44,7 @@ function Home() {
       <Row title="Romance movies" fetchUrl={fetchUrl[6]} />
       <Row title="Documentaries" fetchUrl={fetchUrl[7]} />
       <AddFavourites />
+      {/* <Row title="Favourites" fetchUrl={favourites}/> */}
     </div>
   );
 }
