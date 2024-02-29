@@ -1,8 +1,6 @@
-
 import "./Navbar.css";
 
 function Navbar(props) {
-  
   // function handleSearch(event) {
   //   setSearch(event.target.value);
   // }
@@ -18,7 +16,7 @@ function Navbar(props) {
         type="text"
         value={props.value}
         placeholder="Search your movies here"
-       onChange={(event)=>props.setSearch(event.target.value)}
+        onChange={(event) => props.setSearch(event.target.value)}
       ></input>
       <h1>{props.search}</h1>
       <img
