@@ -35,7 +35,7 @@ function Row({ title, fetchUrl, isLargeRow, search, setSearch }) {
     <div className="row">
       <h1>{title}</h1>
       <div className="row-posters">
-        {movies.map((movie) => (
+        {movies?.map((movie) => (
           <img
             key={movie.id}
             className={`row-poster ${isLargeRow && "row-posterLarge"}`}
