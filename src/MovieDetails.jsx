@@ -19,7 +19,7 @@ function MovieDetails() {
   // console.log(crewFiltered)
 
   const { id } = useParams();
-  const dateYear = details?.release_date.slice(0,4);
+  const dateYear = details?.release_date;
 
   const detailsOptions = {
     method: "GET",
