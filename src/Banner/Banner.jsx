@@ -1,8 +1,8 @@
-import { base_url } from "./Row";
-import axios from "./axios";
-import requests from "./requests";
+import { base_url } from "../Row/Row";
+import axios from "../axios";
+import requests from "../requests";
 import { useEffect, useState } from "react";
-import "./Banner.css";
+import "../Banner/Banner.css";
 import LinesEllipsis from "react-lines-ellipsis";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +11,9 @@ function Banner() {
   function handlePlayClick() {
     navigate("/player");
   }
+  // function handleBannerClick(id1) {
+  //   navigate(`/details/${id1}`);
+  // }
   //this state is to set the banner random image
   const [movie, setMovie] = useState([]);
 
@@ -24,7 +27,7 @@ function Banner() {
           Math.floor(Math.random() * request.data.results.length - 1)
         ]
       );
-      
+
       return request;
     }
     fetchData();
@@ -49,7 +52,12 @@ function Banner() {
           <button className="playButton" onClick={handlePlayClick}>
             Play
           </button>
-          <button className="listButton">My List</button>
+          <button
+            className="listButton"
+            // onClick={() => handleBannerClick(`${movie.id}`)}
+          >
+            My List
+          </button>
         </div>
         <p className="overview">
           {/* an external react package used for setting max line in description */}

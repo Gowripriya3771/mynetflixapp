@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Row.css";
 import { useNavigate } from "react-router-dom";
-import axios from "./axios";
+import axios from "../axios";
 // export const UserContext = createContext();
 
 export const base_url = "https://image.tmdb.org/t/p/original/";

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./AddFavourites.css";
+
 function AddFavourites() {
   const [addFavourites, setAddFavourites] = useState([]);
   const handleFavourite = (movie) => {

@@ -1,14 +1,12 @@
-import Navbar from "./Navbar";
-import Banner from "./Banner";
-import Row from "./Row";
-import requests from "./requests";
-import "./Home.css";
-import { useState } from "react";
+import Banner from "../Banner/Banner";
+import Row from "../Row/Row";
+import requests from "../requests";
+import "../Home/Home.css";
 
 function Home() {
   const fetchUrl = Object.values(requests);
-  const [search, setSearch] = useState("");
-  //check why its not working
+
+  // check why its not working
   // const [movies, setMovies] = useState([]);
   // console.log(movies)
   // useEffect(() => {
@@ -23,17 +21,11 @@ function Home() {
 
   return (
     <div>
-      <Navbar search={search} setSearch={setSearch} />
       <Banner />
 
       {/* for each row the title and the url is passed */}
       <Row title="NETFLIX ORIGINALS" fetchUrl={fetchUrl[0]} isLargeRow={true} />
-      <Row
-        title="Trending Now"
-        fetchUrl={fetchUrl[1]}
-        search={search}
-        setSearch={setSearch}
-      />
+      <Row title="Trending Now" fetchUrl={fetchUrl[1]} />
       <Row title="Top Rated" fetchUrl={fetchUrl[2]} />
       <Row title="Action movies" fetchUrl={fetchUrl[3]} />
       <Row title="Comedy Movies" fetchUrl={fetchUrl[4]} />
