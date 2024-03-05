@@ -4,7 +4,12 @@ import Home from "../Home/Home";
 import MovieDetails from "../MovieDetails/MovieDetails";
 import Player from "../Player";
 import Navbar from "../Navbar/Navbar";
-import { useState } from "react";
+import Login from "../LoginPage/Login";
+
+//TO-DO
+// add video trailer 
+//add mylist
+//add account settings 
 
 function App() {
   return (
@@ -16,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/details/:id" element={<MovieDetails />} />
           <Route path="/player" element={<Player />} />
+          <Route path="/login" element={<Login/>}/>
         </Routes>
       </Router>
     </div>

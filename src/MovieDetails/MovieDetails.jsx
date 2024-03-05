@@ -6,20 +6,15 @@ import { base_url } from "../Row/Row";
 import LinesEllipsis from "react-lines-ellipsis";
 
 import "./MovieDetails.css";
-// import SimilarMovies from "../SimilarMovies/SimilarMovies";
 
 function MovieDetails() {
+  function handleSimiliarClick(id) {
+    navigated(`/details/${id}`);
+  }
+  const navigated = useNavigate();
   const [details, setDetails] = useState("");
   const [credits, setCredits] = useState({});
   const [recommendation, setRecommendation] = useState([]);
-  console.log("@apple", recommendation);
-
-  // console.log("@@@", typeof credits.crew);
-  // const arrayFiltered=credits.crew;
-  // console.log("@@@",arrayFiltered)
-  // const crewFiltered=arrayFiltered.filter((obj)=>obj.job==="Characters")
-  // console.log(crewFiltered)
-  // const {id1}=useParams();
 
   const { id } = useParams();
   const d = new Date(details.release_date);
@@ -73,7 +68,6 @@ function MovieDetails() {
         }}
       >
         <div className="details-contents">
-          {/* <img src={`${base_url}${details?.poster_path}`} alt={details?.name} /> */}
           <h1 className="titleMovies">
             {details?.title || details?.original_name || details?.name}
           </h1>
@@ -90,7 +84,6 @@ function MovieDetails() {
 
           <div className="genre">
             <h1>
-              {" "}
               Genre: {details?.genres?.map((item) => item.name).join(",")}
             </h1>
           </div>
@@ -113,16 +106,17 @@ function MovieDetails() {
           </p>
         </div>
         <div>
-          <h2>Cast:</h2>
           <h3>
+            Cast:
             {credits?.cast
               ?.filter((item) => item?.known_for_department === "Acting")
-              .map((obj) => obj.original_name)?.slice(0,7)
+              .map((obj) => obj.original_name)
+              ?.slice(0, 7)
               .join(",")}
           </h3>
 
           <h3>
-            Director:{" "}
+            Director:
             {credits?.crew?.filter((item) => item?.job === "Director")[0]?.name}
           </h3>
         </div>
@@ -135,6 +129,7 @@ function MovieDetails() {
             key={movieObj.id}
             src={`${base_url}${movieObj?.poster_path}`}
             alt={movieObj?.name}
+            onClick={() => handleSimiliarClick(`${movieObj.id}`)}
           ></img>
         ))}
       </div>

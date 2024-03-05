@@ -3,22 +3,42 @@ import axios from "../axios";
 import "../Navbar/Navbar.css";
 import requests from "../requests";
 
+// import { useNavigate } from "react-router-dom";
+
 function Navbar() {
+  const [open, setOpen] = useState(false);
+  const menus = ["Profile", "LogOut"];
   const [search, setSearch] = useState("");
   const [searchTerm, setSearchTerm] = useState([]);
+  //  const navigate = useNavigate();
+  function handleAvatarClick() {
+    setOpen(!open);
+    //this should work when logout is clicked
+    localStorage.clear();
+
+    // window.location.reload();
+  }
+  function handleListClick(item) {
+    if (item === "LogOut") {
+      localStorage.clear();
+      window.location.reload();
+    }
+  }
 
   useEffect(() => {
     async function fetchData() {
-      const requestSearch = await axios.get(requests.fetchSearchResults);
-      console.log("@orange", requestSearch);
+      const requestSearch = await axios.get(
+        requests.fetchSearchResults.replace("searchh", `${search}`)
+      );
+
       setSearchTerm(requestSearch.data.results);
+      console.log("@key", requestSearch.data.results);
+      console.log("test1", searchTerm);
     }
 
     fetchData();
   }, []);
-  // function handleSearch(event) {
-  //   setSearch(event.target.value);
-  // }
+  //when dependency array (search and searchterm) is added,it is causing infinite rendering
   return (
     <div className="navbar">
       <img
@@ -34,12 +54,43 @@ function Navbar() {
         onChange={(event) => setSearch(event.target.value)}
       ></input>
       <h1>{search}</h1>
-      <img
-        className="avatar"
-        src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
-      ></img>
+      <div>
+        <img
+          onClick={handleAvatarClick}
+          className="avatar"
+          src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+        ></img>
+        {open && (
+          <div className="avatarDropdown" style={{ position: "absolute" }}>
+            <ul
+              className="dropDown"
+              style={{
+                backgroundColor: "white",
+                color: "black",
+              }}
+            >
+              {menus.map((item) => (
+                <li
+                  onClick={() => handleListClick(item)}
+                  className="items"
+                  key={item}
+                  style={{ listStyle: "none", cursor: "pointer" }}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* just to see if search result is displaying */}
+        {searchTerm?.map((obj)=>(
+          <h1 key={obj.id}>{obj.original_title}</h1>
+        ))}
+      </div>
     </div>
   );
 }
 
+//might need useContext as there is no direct sibling or parent
 export default Navbar;

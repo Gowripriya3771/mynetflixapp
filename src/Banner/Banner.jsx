@@ -7,19 +7,28 @@ import LinesEllipsis from "react-lines-ellipsis";
 import { useNavigate } from "react-router-dom";
 
 function Banner() {
+  
+ 
+  //   const handleBannerClick=(id)=>{
+  //     const name=movie.filter((item)=>item.id===id)
+  //     myListArray=[...myListArray,name]
+  
+  //   }
+  //   const item=myListArray.map((obj)=>obj.poster_path);
+  //   console.log("item",item)
+ 
+ 
+  // console.log("hihhihi",myListArray)
   const navigate = useNavigate();
   function handlePlayClick() {
     navigate("/player");
   }
-  // function handleBannerClick(id1) {
-  //   navigate(`/details/${id1}`);
-  // }
+
   //this state is to set the banner random image
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-      // this will fetch the netflix originals data
       const request = await axios.get(requests.fetchNetflixOriginals);
       //this will select any random obj from the array of object
       setMovie(
@@ -54,7 +63,7 @@ function Banner() {
           </button>
           <button
             className="listButton"
-            // onClick={() => handleBannerClick(`${movie.id}`)}
+           
           >
             My List
           </button>
@@ -69,6 +78,7 @@ function Banner() {
             basedOn="letters"
           />
         </p>
+        {/* <div>{item}</div> */}
       </div>
     </header>
   );
