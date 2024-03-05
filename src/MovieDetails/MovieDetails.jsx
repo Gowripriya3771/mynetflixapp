@@ -8,8 +8,19 @@ import LinesEllipsis from "react-lines-ellipsis";
 import "./MovieDetails.css";
 
 function MovieDetails() {
+  const [myList, setMyList] = useState([]);
+
+  function handleListClick(poster) {
+    setMyList([...myList, poster]);
+    // myNewList=[...myList,poster]
+    console.log("@@@@@22", myList);
+  }
+
   function handleSimiliarClick(id) {
     navigated(`/details/${id}`);
+  }
+  function handlePlayButton() {
+    navigated("/player");
   }
   const navigated = useNavigate();
   const [details, setDetails] = useState("");
@@ -91,8 +102,17 @@ function MovieDetails() {
           <div></div>
 
           <div className="buttons">
-            <button className="playButton">Play</button>
-            <button className="listButton">My List</button>
+            <button className="playButton" onClick={handlePlayButton}>
+              Play
+            </button>
+            <button
+              onClick={() =>
+                handleListClick(`${base_url}${details.poster_path}`)
+              }
+              className="listButton"
+            >
+              My List
+            </button>
           </div>
           <p className="overview">
             {/* an external react package used for setting max line in description */}
@@ -132,6 +152,14 @@ function MovieDetails() {
             onClick={() => handleSimiliarClick(`${movieObj.id}`)}
           ></img>
         ))}
+      </div>
+      <div>
+        <h1>My List</h1>
+        <div className="myList">
+          {myList.map((item) => (
+            <img className="listImages" key={item} src={item} />
+          ))}
+        </div>
       </div>
     </div>
   );
