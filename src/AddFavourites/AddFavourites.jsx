@@ -8,7 +8,7 @@ function AddFavourites() {
     setAddFavourites(newFavMov);
   };
   return (
-    <div className="addFav" onClick={()=>handleFavourite(movie)}>
+    <div className="addFav" onClick={()=>handleFavourite(`${movie.id}`)}>
       <span>Add to favourites</span>
       <span className="material-symbols-outlined">favorite</span>
       {/* {newFavMov.map((item)=>item.original_title)} */}

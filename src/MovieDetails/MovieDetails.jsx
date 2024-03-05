@@ -16,7 +16,7 @@ function MovieDetails() {
     console.log("@@@@@22", myList);
   }
 
-  function handleSimiliarClick(id) {
+  function handleSimilarClick(id) {
     navigated(`/details/${id}`);
   }
   function handlePlayButton() {
@@ -80,7 +80,7 @@ function MovieDetails() {
       >
         <div className="details-contents">
           <h1 className="titleMovies">
-            {details?.title || details?.original_name || details?.name}
+            {details?.title || details?.name}
           </h1>
           <div
             className="movieRating"
@@ -149,13 +149,13 @@ function MovieDetails() {
             key={movieObj.id}
             src={`${base_url}${movieObj?.poster_path}`}
             alt={movieObj?.name}
-            onClick={() => handleSimiliarClick(`${movieObj.id}`)}
+            onClick={() => handleSimilarClick(`${movieObj.id}`)}
           ></img>
         ))}
       </div>
       <div>
         <h1>My List</h1>
-        <div className="myList">
+        <div className="myListContainer">
           {myList.map((item) => (
             <img className="listImages" key={item} src={item} />
           ))}

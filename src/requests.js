@@ -18,3 +18,6 @@ const fetch = Object.values(requests);
 // console.log(Object.values(requests))
 console.log(fetch[0]);
 export default requests;
+
+
+//base url: https://image.tmdb.org/t/p/original/

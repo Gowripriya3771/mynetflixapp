@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import axios from "../axios";
 import "../Navbar/Navbar.css";
 import requests from "../requests";
+import { base_url } from "../Row/Row";
 
 // import { useNavigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ search, searchTerm, setSearch, setSearchTerm }) {
   const [open, setOpen] = useState(false);
   const menus = ["Profile", "LogOut"];
-  const [search, setSearch] = useState("");
-  const [searchTerm, setSearchTerm] = useState([]);
+  // const [search, setSearch] = useState("");
+  // const [searchTerm, setSearchTerm] = useState([]);
   //  const navigate = useNavigate();
   function handleAvatarClick() {
     setOpen(!open);
@@ -37,7 +38,7 @@ function Navbar() {
     }
 
     fetchData();
-  }, []);
+  }, [search]);
   //when dependency array (search and searchterm) is added,it is causing infinite rendering
   return (
     <div className="navbar">
@@ -84,9 +85,11 @@ function Navbar() {
         )}
 
         {/* just to see if search result is displaying */}
-        {searchTerm?.map((obj)=>(
-          <h1 key={obj.id}>{obj.original_title}</h1>
-        ))}
+        {/* <div className="searchResults">
+          {searchTerm?.map((obj) => (
+            <img className="searchResultImage" src={`${base_url}${obj.poster_path}`} key={obj.id}/>
+          ))}
+        </div> */}
       </div>
     </div>
   );

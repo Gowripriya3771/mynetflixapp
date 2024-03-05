@@ -55,7 +55,7 @@ function Banner() {
       <div className="banner-contents">
         {/* <img src={`${base_url}${movie.backdrop_path}`} alt={movie.name} /> */}
         <h1 className="titleMovie">
-          {movie?.title || movie?.original_name || movie?.name}
+          {movie?.title || movie?.name}
         </h1>
         <div className="buttons">
           <button className="playButton" onClick={handlePlayClick}>
