@@ -9,7 +9,7 @@ function Home({ search, setSearch, searchTerm, setSearchTerm }) {
 
   return (
     <div>
-      <Banner />
+      {/* conditional rendering */}
       {searchTerm.length > 0 ? (
         <div className="mainResults">
           <h1>Search Results</h1>
@@ -21,12 +21,12 @@ function Home({ search, setSearch, searchTerm, setSearchTerm }) {
                 key={obj.id}
               />
             ))}
-            {/* <h3>{searchTerm.map((obj)=>obj.title)}</h3> */}
           </div>
         </div>
       ) : (
         <div>
-          {/* <h1>No results found</h1> */}
+          {/* for each row the title and the url is passed */}
+          <Banner />
           <Row
             title="NETFLIX ORIGINALS"
             fetchUrl={fetchUrl[0]}
@@ -41,8 +41,6 @@ function Home({ search, setSearch, searchTerm, setSearchTerm }) {
           <Row title="Documentaries" fetchUrl={fetchUrl[7]} />
         </div>
       )}
-
-      {/* for each row the title and the url is passed */}
     </div>
   );
 }

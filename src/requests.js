@@ -13,11 +13,11 @@ const requests = {
   fetchMovieCredits: `/movie/id/credits?api_key=${API_KEY}&language=en-US`,
   fetchMovieRecommendations: `/movie/id/recommendations?api_key=${API_KEY}&language=en-US`,
   fetchSearchResults: `/search/movie?query=searchh&api_key=${API_KEY}&language=en-US'`,
+  fetchVideoTrailer: `/movie/movie_id/videos?api_key=${API_KEY}&language=en-US`,
 };
 const fetch = Object.values(requests);
 // console.log(Object.values(requests))
 console.log(fetch[0]);
 export default requests;
-
 
 //base url: https://image.tmdb.org/t/p/original/

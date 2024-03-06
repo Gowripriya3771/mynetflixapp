@@ -100,7 +100,7 @@
 .myListContainer{
   display: flex;
   flex-direction:row;
-justify-content:flex-start;
+/* justify-content:flex-start; */
   /* gap: 10px; */
   overflow-y: hidden;
   overflow-x: scroll;

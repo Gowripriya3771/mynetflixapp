@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import YouTube from "react-youtube";
 
 function Player() {
   const navigate = useNavigate();
@@ -12,15 +13,15 @@ function Player() {
         arrow_back
       </span>
       {/* <h1>This is the player page</h1> */}
-
-      <iframe
+<YouTube/>
+      {/* <iframe
         width="100%"
         height="800px"
         src="https://www.youtube.com/embed/aqz-KE-bpKQ?si=vLYJ7Dwh4LT226mb"
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen
-      ></iframe>
+      ></iframe> */}
     </div>
   );
 }

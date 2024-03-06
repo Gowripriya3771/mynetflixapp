@@ -6,14 +6,17 @@ import { base_url } from "../Row/Row";
 import LinesEllipsis from "react-lines-ellipsis";
 
 import "./MovieDetails.css";
+import YouTube from "react-youtube";
 
 function MovieDetails() {
+  const getList = localStorage.getItem("myListItem");
   const [myList, setMyList] = useState([]);
 
   function handleListClick(poster) {
+    // spread operator to get the past datas from the array
     setMyList([...myList, poster]);
-    // myNewList=[...myList,poster]
-    console.log("@@@@@22", myList);
+    console.log("@myList", myList);
+    localStorage.setItem("myListItem", myList);
   }
 
   function handleSimilarClick(id) {
@@ -26,6 +29,7 @@ function MovieDetails() {
   const [details, setDetails] = useState("");
   const [credits, setCredits] = useState({});
   const [recommendation, setRecommendation] = useState([]);
+  const [trailer, setTrailer] = useState([]);
 
   const { id } = useParams();
   const d = new Date(details.release_date);
@@ -58,6 +62,12 @@ function MovieDetails() {
       console.log("@@@", recommendation);
       setDetails(detailsRequest.data);
       setCredits(creditsRequest.data);
+
+      const videoRequest = await axios.get(
+        requests.fetchVideoTrailer.replace("movie_id", id.toString())
+      );
+      console.log("@video", videoRequest.data);
+      setTrailer(videoRequest.data.results);
     }
 
     fetchData();
@@ -79,9 +89,7 @@ function MovieDetails() {
         }}
       >
         <div className="details-contents">
-          <h1 className="titleMovies">
-            {details?.title || details?.name}
-          </h1>
+          <h1 className="titleMovies">{details?.title || details?.name}</h1>
           <div
             className="movieRating"
             style={{ display: "flex", flexDirection: "row", gap: "10px" }}
@@ -105,6 +113,10 @@ function MovieDetails() {
             <button className="playButton" onClick={handlePlayButton}>
               Play
             </button>
+            {/* <YouTube videoId={trailer.id}/> */}
+            {/* {trailer?.filter((video) =>
+              console.log(video?.name === "Official Trailer").map((item)=>item?.id)
+            )} */}
             <button
               onClick={() =>
                 handleListClick(`${base_url}${details.poster_path}`)
@@ -154,11 +166,13 @@ function MovieDetails() {
         ))}
       </div>
       <div>
+        {/* here my list wont work when user goes to home component from movie details component or refreshes the page*/}
         <h1>My List</h1>
         <div className="myListContainer">
-          {myList.map((item) => (
-            <img className="listImages" key={item} src={item} />
-          ))}
+          {getList &&
+            myList.map((item) => (
+              <img className="listImages" key={item} src={item} />
+            ))}
         </div>
       </div>
     </div>
