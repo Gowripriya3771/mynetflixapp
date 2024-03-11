@@ -7,44 +7,49 @@ import MovieDetails from "../MovieDetails/MovieDetails";
 import Player from "../Player";
 import Navbar from "../Navbar/Navbar";
 import Login from "../LoginPage/Login";
+import Home from "../Home/Home";
 import { useState } from "react";
-const LazyHome = React.lazy(() => import("../Home/Home"));
+import { base_url } from "../Row/Row";
 
 function App() {
   const [search, setSearch] = useState("");
   const [searchTerm, setSearchTerm] = useState([]);
-  
+
   return (
     <div className="app">
-      <Navbar
-        search={search}
-        searchTerm={searchTerm}
-        setSearch={setSearch}
-        setSearchTerm={setSearchTerm}
-      />
       {/* Adding routes */}
       <Router>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <React.Suspense fallback="Loading...">
-                <LazyHome
-                  search={search}
-                  searchTerm={searchTerm}
-                  setSearch={setSearch}
-                  setSearchTerm={setSearchTerm}
+        <Navbar
+          search={search}
+          searchTerm={searchTerm}
+          setSearch={setSearch}
+          setSearchTerm={setSearchTerm}
+        />
+        {searchTerm.length > 0 ? (
+          <div className="mainResults">
+            <h1>Search Results</h1>
+            <div className="searchResults">
+              {searchTerm?.map((obj) => (
+                <img
+                  className="searchResultImage"
+                  src={`${base_url}${obj.poster_path}`}
+                  key={obj.id}
                 />
-              </React.Suspense>
-            }
-          />
-          <Route path="/details/:id" element={<MovieDetails />} />
-          <Route path="/player" element={<Player />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/details/:id" element={<MovieDetails />} />
+            <Route path="/player/:id" element={<Player />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        )}
       </Router>
     </div>
   );
 }
 
 export default App;
+//remove lazy loading...

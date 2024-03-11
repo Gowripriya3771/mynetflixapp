@@ -6,7 +6,7 @@ import axios from "../axios";
 
 export const base_url = "https://image.tmdb.org/t/p/original/";
 
-function Row({ title, fetchUrl, isLargeRow, search, setSearch }) {
+function Row({ title, fetchUrl, isLargeRow, search, setSearch ,pageNumber}) {
   function handleClick(id) {
     navigate(`/details/${id}`);
   }
@@ -20,14 +20,14 @@ function Row({ title, fetchUrl, isLargeRow, search, setSearch }) {
   // console.log("###",search)
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(fetchUrl);
+      const request = await axios.get(fetchUrl.replace("pageN",pageNumber));
       console.log(request.data.results);
       setMovies(request.data.results);
       return request.data.results;
     }
 
     fetchData();
-  }, [fetchUrl]);
+  }, [fetchUrl,pageNumber]);
 
   //here if we give an empty dependency array then run once when the row loads ,when we give movies inside the dependency array then it loads whenever the array changes
   return (

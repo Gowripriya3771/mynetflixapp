@@ -6,30 +6,35 @@ import { base_url } from "../Row/Row";
 import LinesEllipsis from "react-lines-ellipsis";
 
 import "./MovieDetails.css";
-import YouTube from "react-youtube";
+// import YouTube from "react-youtube";
 
 function MovieDetails() {
-  const getList = localStorage.getItem("myListItem");
+  // const getList = sessionStorage.getItem("myListItem");
+  // const getListItem=JSON.parse(getList)
   const [myList, setMyList] = useState([]);
 
   function handleListClick(poster) {
     // spread operator to get the past datas from the array
-    setMyList([...myList, poster]);
-    console.log("@myList", myList);
-    localStorage.setItem("myListItem", myList);
+    // TODO: Check whether movie already exists in myList
+    if (!myList.includes(poster)) {
+      setMyList([...myList, poster]);
+      sessionStorage.setItem("myListItem", JSON.stringify([...myList, poster]));
+    }
+    else {
+      alert("Movie already in list");
+    }
   }
 
   function handleSimilarClick(id) {
     navigated(`/details/${id}`);
   }
   function handlePlayButton() {
-    navigated("/player");
+    navigated(`/player/${id}`);
   }
   const navigated = useNavigate();
   const [details, setDetails] = useState("");
   const [credits, setCredits] = useState({});
   const [recommendation, setRecommendation] = useState([]);
-  const [trailer, setTrailer] = useState([]);
 
   const { id } = useParams();
   const d = new Date(details.release_date);
@@ -37,37 +42,31 @@ function MovieDetails() {
 
   useEffect(() => {
     async function fetchData() {
-      console.log(requests.fetchMovieDetails.replace("id", id.toString()));
+      // console.log(requests.fetchMovieDetails.replace("id", id.toString()));
       // id is replaced by dynamically passed id parameter ${id}
       const detailsRequest = await axios.get(
         requests.fetchMovieDetails.replace("id", id.toString())
       );
 
-      console.log(detailsRequest.data);
-      console.log(
-        "@gowri",
-        requests.fetchMovieCredits.replace("id", id.toString())
-      );
       const creditsRequest = await axios.get(
         requests.fetchMovieCredits.replace("id", id.toString())
       );
 
-      console.log(creditsRequest.data);
-
       const movieRecommendation = await axios.get(
         requests.fetchMovieRecommendations.replace("id", id.toString())
       );
-      console.log("test1", movieRecommendation.data.results);
+
       setRecommendation(movieRecommendation.data.results);
-      console.log("@@@", recommendation);
       setDetails(detailsRequest.data);
       setCredits(creditsRequest.data);
 
-      const videoRequest = await axios.get(
-        requests.fetchVideoTrailer.replace("movie_id", id.toString())
-      );
-      console.log("@video", videoRequest.data);
-      setTrailer(videoRequest.data.results);
+      // console.log("@video", videoRequest.data);
+      // setTrailer(videoRequest.data.results);
+
+      const list = JSON.parse(sessionStorage.getItem("myListItem"));
+      if (list) {
+        setMyList(list);
+      }
     }
 
     fetchData();
@@ -169,7 +168,7 @@ function MovieDetails() {
         {/* here my list wont work when user goes to home component from movie details component or refreshes the page*/}
         <h1>My List</h1>
         <div className="myListContainer">
-          {getList &&
+          {myList != [] &&
             myList.map((item) => (
               <img className="listImages" key={item} src={item} />
             ))}
@@ -180,3 +179,12 @@ function MovieDetails() {
 }
 
 export default MovieDetails;
+
+// this is how it should work
+// const handleExampleClick=(id)=>{
+//   const name=movie.filter((item)=>item.id===id)
+//   myListArray=[...myListArray,name]
+
+// localStorage.setItem("listData",JSON.stringify([myListArray]))
+//const listGet=localStorage.getItem("listData")
+// const getListData=JSON.parse(listGet)

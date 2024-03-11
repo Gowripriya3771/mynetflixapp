@@ -8,12 +8,13 @@ import { useNavigate } from "react-router-dom";
 
 function Banner() {
   
- 
-  //   const handleBannerClick=(id)=>{
-  //     const name=movie.filter((item)=>item.id===id)
-  //     myListArray=[...myListArray,name]
+ const[myListArray,setMyListArray]=useState([])
+    const handleBannerClick=(id)=>{
+      const name=Object.values(movie)?.filter((item)=>item?.id===id)
+      setMyListArray([...myListArray,name])
+      console.log("@@@",myListArray)
   
-  //   }
+    }
   //   const item=myListArray.map((obj)=>obj.poster_path);
   //   console.log("item",item)
  
@@ -61,7 +62,7 @@ function Banner() {
           <button className="playButton" onClick={handlePlayClick}>
             Play
           </button>
-          <button
+          <button onClick={handleBannerClick}
             className="listButton"
            
           >
@@ -78,6 +79,7 @@ function Banner() {
             basedOn="letters"
           />
         </p>
+        <p>{myListArray.map((titles)=>{titles.title})}</p>
         {/* <div>{item}</div> */}
       </div>
     </header>

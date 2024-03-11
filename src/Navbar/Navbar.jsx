@@ -3,6 +3,7 @@ import axios from "../axios";
 import "../Navbar/Navbar.css";
 import requests from "../requests";
 import { base_url } from "../Row/Row";
+import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 // import { useNavigate } from "react-router-dom";
@@ -12,7 +13,7 @@ function Navbar({ search, searchTerm, setSearch, setSearchTerm }) {
   const menus = ["Profile", "LogOut"];
   // const [search, setSearch] = useState("");
   // const [searchTerm, setSearchTerm] = useState([]);
-  // const navigate = useNavigate();
+   const navigate = useNavigate();
   function handleAvatarClick() {
     setOpen(!open);
     //this should work when logout is clicked
@@ -23,7 +24,7 @@ function Navbar({ search, searchTerm, setSearch, setSearchTerm }) {
   function handleListClick(item) {
     if (item === "LogOut") {
       localStorage.clear();
-      // navigate("/login");
+      navigate("/login");
       window.location.reload();
     }
   }
@@ -90,5 +91,5 @@ function Navbar({ search, searchTerm, setSearch, setSearchTerm }) {
   );
 }
 
-//might need useContext as there is no direct sibling or parent
+
 export default Navbar;

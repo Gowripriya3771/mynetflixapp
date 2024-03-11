@@ -2,7 +2,7 @@ export const API_KEY = "ea00cd74a7314b5887a7766f73202632";
 // these r just endpoints
 const requests = {
   fetchTrending: `/trending/all/week?api_key=${API_KEY}&language=en-US`,
-  fetchNetflixOriginals: `/discover/tv?api_key=${API_KEY}&with_networks=213&language=en-US`,
+  fetchNetflixOriginals: `/discover/tv?api_key=${API_KEY}&with_networks=213&language=en-US&page=20`,
   fetchTopRated: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
   fetchActionMovies: `/discover/movie?api_key=${API_KEY}&with_genres=28&language=en-US`,
   fetchComedyMovies: `/discover/movie?api_key=${API_KEY}&with_genres=35&language=en-US`,
@@ -14,10 +14,11 @@ const requests = {
   fetchMovieRecommendations: `/movie/id/recommendations?api_key=${API_KEY}&language=en-US`,
   fetchSearchResults: `/search/movie?query=searchh&api_key=${API_KEY}&language=en-US'`,
   fetchVideoTrailer: `/movie/movie_id/videos?api_key=${API_KEY}&language=en-US`,
+  // movie_id is replaced by dynamically received id of the movie that is clicked.
 };
 const fetch = Object.values(requests);
 // console.log(Object.values(requests))
 console.log(fetch[0]);
 export default requests;
 
-//base url: https://image.tmdb.org/t/p/original/
+
