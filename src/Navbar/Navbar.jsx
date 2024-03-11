@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "../axios";
 import "../Navbar/Navbar.css";
 import requests from "../requests";
-import { base_url } from "../Row/Row";
+// import { base_url } from "../Row/Row";
 import { useNavigate } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
@@ -13,11 +13,11 @@ function Navbar({ search, searchTerm, setSearch, setSearchTerm }) {
   const menus = ["Profile", "LogOut"];
   // const [search, setSearch] = useState("");
   // const [searchTerm, setSearchTerm] = useState([]);
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   function handleAvatarClick() {
     setOpen(!open);
     //this should work when logout is clicked
-    localStorage.clear();
+    // localStorage.clear();
 
     // window.location.reload();
   }
@@ -42,7 +42,7 @@ function Navbar({ search, searchTerm, setSearch, setSearchTerm }) {
 
     fetchData();
   }, [search]);
-  //when dependency array (search and searchterm) is added,it is causing infinite rendering
+
   return (
     <div className="navbar">
       <img
@@ -91,5 +91,8 @@ function Navbar({ search, searchTerm, setSearch, setSearchTerm }) {
   );
 }
 
-
 export default Navbar;
+
+//if is logged in then set profile to your name
+//search useEffect problems
+//when dependency array (search and searchterm) is added,it is causing infinite rendering

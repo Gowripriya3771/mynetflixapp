@@ -97,13 +97,15 @@
   transition: transform 450ms;
   border-radius: 15px;
 }
-.myListContainer{
+.myListContainer {
   display: flex;
-  flex-direction:row;
-/* justify-content:flex-start; */
-  /* gap: 10px; */
+  flex-direction: row;
+  gap: 10px;
   overflow-y: hidden;
   overflow-x: scroll;
+  /* justify-content:flex-start; */
+  /* gap: 10px; */
+
   padding: 10px;
 }
 .listImages {
@@ -112,6 +114,16 @@
   height: 300px;
   transition: transform 450ms;
   border-radius: 15px;
+  position: relative;
 }
 
-
+.closeButton {
+  position: absolute;
+  z-index: 1;
+  width: 40px;
+  float: right;
+  margin-left: 160px;
+  /* color:aquamarine;
+  background-color: blue; */
+  /* right: 20px; */
+}

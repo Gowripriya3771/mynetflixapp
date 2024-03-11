@@ -6,7 +6,7 @@ import axios from "../axios";
 
 export const base_url = "https://image.tmdb.org/t/p/original/";
 
-function Row({ title, fetchUrl, isLargeRow, search, setSearch ,pageNumber}) {
+function Row({ title, fetchUrl, isLargeRow, search, setSearch, pageNumber }) {
   function handleClick(id) {
     navigate(`/details/${id}`);
   }
@@ -14,22 +14,18 @@ function Row({ title, fetchUrl, isLargeRow, search, setSearch ,pageNumber}) {
   const navigate = useNavigate();
   //code snippets which run on some conditions
   const [movies, setMovies] = useState([]);
-  // console.log("@gow", movies);
-  // const filteredArray = movies.filter((item) => item.name===search);
-  // console.log("@orange",filteredArray)
-  // console.log("###",search)
+
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(fetchUrl.replace("pageN",pageNumber));
+      const request = await axios.get(fetchUrl.replace("pageN", pageNumber));
       console.log(request.data.results);
       setMovies(request.data.results);
       return request.data.results;
     }
 
     fetchData();
-  }, [fetchUrl,pageNumber]);
+  }, [fetchUrl, pageNumber]);
 
-  //here if we give an empty dependency array then run once when the row loads ,when we give movies inside the dependency array then it loads whenever the array changes
   return (
     // <UserContext.Provider value={movies}>
     <div className="row">
@@ -46,11 +42,6 @@ function Row({ title, fetchUrl, isLargeRow, search, setSearch ,pageNumber}) {
             alt={movie.name}
             onClick={() => handleClick(`${movie.id}`)}
           ></img>
-
-          //here in another div we can give the add favourites on hover and on click add favorites is added
-          //check why not working
-
-          // <AddFavourites onClick={props.handlefavclick(movie)}/>
         ))}
       </div>
     </div>

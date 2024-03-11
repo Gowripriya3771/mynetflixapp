@@ -9,6 +9,15 @@ import "./MovieDetails.css";
 // import YouTube from "react-youtube";
 
 function MovieDetails() {
+  const navigated = useNavigate();
+  const [details, setDetails] = useState("");
+  const [credits, setCredits] = useState({});
+  const [recommendation, setRecommendation] = useState([]);
+
+  const { id } = useParams();
+  const d = new Date(details.release_date);
+  const movieYear = d.getFullYear();
+
   // const getList = sessionStorage.getItem("myListItem");
   // const getListItem=JSON.parse(getList)
   const [myList, setMyList] = useState([]);
@@ -20,38 +29,44 @@ function MovieDetails() {
       setMyList([...myList, poster]);
       sessionStorage.setItem("myListItem", JSON.stringify([...myList, poster]));
     }
-    else {
+    if (myList.includes(poster)) {
       alert("Movie already in list");
     }
   }
 
+  //to show similar movies
   function handleSimilarClick(id) {
     navigated(`/details/${id}`);
   }
+
+  //to navigate to player trailer page
   function handlePlayButton() {
     navigated(`/player/${id}`);
   }
-  const navigated = useNavigate();
-  const [details, setDetails] = useState("");
-  const [credits, setCredits] = useState({});
-  const [recommendation, setRecommendation] = useState([]);
 
-  const { id } = useParams();
-  const d = new Date(details.release_date);
-  const movieYear = d.getFullYear();
+  //to delete the movie from my list
+  function handleDeleteIcon(id) {
+    let myUpdatedList = myList.filter((item) => item !== id);
+    setMyList(myUpdatedList);
+
+    console.log("@delete", myUpdatedList);
+  }
 
   useEffect(() => {
     async function fetchData() {
       // console.log(requests.fetchMovieDetails.replace("id", id.toString()));
       // id is replaced by dynamically passed id parameter ${id}
+
+      //to get the details of the movie
       const detailsRequest = await axios.get(
         requests.fetchMovieDetails.replace("id", id.toString())
       );
-
+      //to get the extra details of the movie
       const creditsRequest = await axios.get(
         requests.fetchMovieCredits.replace("id", id.toString())
       );
 
+      //to get the similar movie details
       const movieRecommendation = await axios.get(
         requests.fetchMovieRecommendations.replace("id", id.toString())
       );
@@ -60,10 +75,8 @@ function MovieDetails() {
       setDetails(detailsRequest.data);
       setCredits(creditsRequest.data);
 
-      // console.log("@video", videoRequest.data);
-      // setTrailer(videoRequest.data.results);
-
       const list = JSON.parse(sessionStorage.getItem("myListItem"));
+      //if list is not empty set the list to array
       if (list) {
         setMyList(list);
       }
@@ -170,7 +183,16 @@ function MovieDetails() {
         <div className="myListContainer">
           {myList != [] &&
             myList.map((item) => (
-              <img className="listImages" key={item} src={item} />
+              <div key={item.id} className="close">
+                <button
+                  className="closeButton"
+                  onClick={() => handleDeleteIcon(`${item}`)}
+                >
+                  X
+                </button>
+                <img className="listImages" key={item} src={item} />
+                {/* <button onClick={() => deleteList(`${item.id}`)}>X</button> */}
+              </div>
             ))}
         </div>
       </div>

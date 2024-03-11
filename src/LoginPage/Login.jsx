@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./Login.css";
 import Home from "../Home/Home";
 function Login() {
@@ -6,9 +6,11 @@ function Login() {
   const password = useRef();
   const getEmail = localStorage.getItem("emailData");
   const getPassword = localStorage.getItem("passwordData");
+  // const [isLogin, setIsLogin] = useState(false);
 
   const handleSubmit = () => {
     if (
+      //.current which can be accessed using ref
       email.current.value === "abc@gmail.com" &&
       password.current.value === "12345"
     ) {
@@ -16,6 +18,7 @@ function Login() {
       localStorage.setItem("passwordData", "12345");
     }
   };
+
   return (
     <div className="login">
       {getEmail && getPassword ? (
@@ -45,7 +48,7 @@ function Login() {
                     className="passwordInput"
                     type="password"
                     ref={password}
-                    value="12345"
+                    // value="12345"
                   ></input>
                 </div>
 
