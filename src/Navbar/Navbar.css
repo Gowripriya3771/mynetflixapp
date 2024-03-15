@@ -2,26 +2,29 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  height: 70px;
 }
 .logo {
   width: 190px;
-  height: 80px;
+  height: 60px;
 }
 .loginBox {
   margin-top: 30px;
 }
 
 .avatar {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
 }
 
 .search {
   margin-left: 1000px;
   background-color: transparent;
-  height: 20px;
+  height: 10px;
   padding: 30px;
-  color: white;
+  color:black;
+  background-color: lightgoldenrodyellow;
+  height: 0%;
 }
 .items:hover {
   background-color: orangered;

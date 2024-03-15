@@ -13,6 +13,7 @@ function MovieDetails() {
   const [details, setDetails] = useState("");
   const [credits, setCredits] = useState({});
   const [recommendation, setRecommendation] = useState([]);
+  // const [myId, setMyId] = useState([]);
 
   const { id } = useParams();
   const d = new Date(details.release_date);
@@ -21,12 +22,17 @@ function MovieDetails() {
   // const getList = sessionStorage.getItem("myListItem");
   // const getListItem=JSON.parse(getList)
   const [myList, setMyList] = useState([]);
+  function handleTestbutton() {
+    // navigated(`/list/${id}`);
+    navigated("/list")
+  }
 
   function handleListClick(poster) {
     // spread operator to get the past datas from the array
     // TODO: Check whether movie already exists in myList
     if (!myList.includes(poster)) {
       setMyList([...myList, poster]);
+
       sessionStorage.setItem("myListItem", JSON.stringify([...myList, poster]));
     }
     if (myList.includes(poster)) {
@@ -45,20 +51,20 @@ function MovieDetails() {
   }
 
   //to delete the movie from my list
-  function handleDeleteIcon(id) {
-    let myUpdatedList = myList.filter((item) => item !== id);
+  function handleDeleteIcon(itemPoster) {
+    console.log("myyy", myList);
+    let myUpdatedList = myList.filter((item) => item !== itemPoster);
     setMyList(myUpdatedList);
+    sessionStorage.setItem("myListItem", JSON.stringify([...myUpdatedList]));
 
     console.log("@delete", myUpdatedList);
   }
 
   useEffect(() => {
     async function fetchData() {
-      // console.log(requests.fetchMovieDetails.replace("id", id.toString()));
-      // id is replaced by dynamically passed id parameter ${id}
-
       //to get the details of the movie
       const detailsRequest = await axios.get(
+        // id is replaced by dynamically passed id parameter ${id} (fetchurl contains id which is replaced by id that we are passing)
         requests.fetchMovieDetails.replace("id", id.toString())
       );
       //to get the extra details of the movie
@@ -74,12 +80,18 @@ function MovieDetails() {
       setRecommendation(movieRecommendation.data.results);
       setDetails(detailsRequest.data);
       setCredits(creditsRequest.data);
+      console.log("details", details);
 
       const list = JSON.parse(sessionStorage.getItem("myListItem"));
       //if list is not empty set the list to array
       if (list) {
         setMyList(list);
       }
+      // const listy = JSON.parse(sessionStorage.getItem("myListItem"));
+      // //if list is not empty set the list to array
+      // if (listy) {
+      //   setMyList(listy);
+      // }
     }
 
     fetchData();
@@ -125,10 +137,7 @@ function MovieDetails() {
             <button className="playButton" onClick={handlePlayButton}>
               Play
             </button>
-            {/* <YouTube videoId={trailer.id}/> */}
-            {/* {trailer?.filter((video) =>
-              console.log(video?.name === "Official Trailer").map((item)=>item?.id)
-            )} */}
+
             <button
               onClick={() =>
                 handleListClick(`${base_url}${details.poster_path}`)
@@ -137,6 +146,8 @@ function MovieDetails() {
             >
               My List
             </button>
+
+            {/* <button onClick={handleTestbutton}>My List 2</button> */}
           </div>
           <p className="overview">
             {/* an external react package used for setting max line in description */}
@@ -178,20 +189,23 @@ function MovieDetails() {
         ))}
       </div>
       <div>
-        {/* here my list wont work when user goes to home component from movie details component or refreshes the page*/}
         <h1>My List</h1>
         <div className="myListContainer">
           {myList != [] &&
             myList.map((item) => (
-              <div key={item.id} className="close">
+              <div key={item} className="close">
                 <button
                   className="closeButton"
                   onClick={() => handleDeleteIcon(`${item}`)}
                 >
                   X
                 </button>
-                <img className="listImages" key={item} src={item} />
-                {/* <button onClick={() => deleteList(`${item.id}`)}>X</button> */}
+                <img
+                  className="listImages"
+                  key={item}
+                  src={item}
+                  //here if we give a function to get the details when clicked on mylist as mylist doesnt contain the id it cant be navigate
+                />
               </div>
             ))}
         </div>
@@ -202,11 +216,13 @@ function MovieDetails() {
 
 export default MovieDetails;
 
-// this is how it should work
-// const handleExampleClick=(id)=>{
-//   const name=movie.filter((item)=>item.id===id)
-//   myListArray=[...myListArray,name]
-
 // localStorage.setItem("listData",JSON.stringify([myListArray]))
 //const listGet=localStorage.getItem("listData")
 // const getListData=JSON.parse(listGet)
+
+//check why after reloading the page the deleted mylist is coming again to the list
+
+//try uselocation and navigate
+
+// navigate("/details" state={data})
+// uselocation in the other component

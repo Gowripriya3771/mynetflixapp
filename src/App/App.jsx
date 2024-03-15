@@ -1,5 +1,3 @@
-import React from "react";
-
 import "../App/App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // import Home from "../Home/Home";
@@ -10,6 +8,7 @@ import Login from "../LoginPage/Login";
 import Home from "../Home/Home";
 import { useState } from "react";
 import { base_url } from "../Row/Row";
+import MyList from "../MyList/MyList";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -25,7 +24,17 @@ function App() {
           setSearch={setSearch}
           setSearchTerm={setSearchTerm}
         />
-        {searchTerm.length > 0 ? (
+        {search && searchTerm.length === 0 ? (
+          <div
+            style={{
+              color: "goldenrod",
+              textAlign: "center",
+              fontSize: "larger",
+            }}
+          >
+            <h1>No results found!</h1>
+          </div>
+        ) : searchTerm.length > 0 ? (
           <div className="mainResults">
             <h1>Search Results</h1>
             <div className="searchResults">
@@ -44,6 +53,8 @@ function App() {
             <Route path="/details/:id" element={<MovieDetails />} />
             <Route path="/player/:id" element={<Player />} />
             <Route path="/login" element={<Login />} />
+            {/* <Route path="/list/:id" element={<MyList />} /> */}
+            <Route path="/list" element={<MyList />} />
           </Routes>
         )}
       </Router>
