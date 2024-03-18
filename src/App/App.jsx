@@ -17,6 +17,7 @@ function App() {
   return (
     <div className="app">
       {/* Adding routes */}
+      {/* in navbar component the search and serach term value is given */}
       <Router>
         <Navbar
           search={search}
@@ -24,6 +25,7 @@ function App() {
           setSearch={setSearch}
           setSearchTerm={setSearchTerm}
         />
+        {/* logic:if input contains the search input and searchterm is 0 then no results else show the search results */}
         {search && searchTerm.length === 0 ? (
           <div
             style={{
@@ -32,7 +34,7 @@ function App() {
               fontSize: "larger",
             }}
           >
-            <h1>No results found!</h1>
+            <h1>Oops! No results found!</h1>
           </div>
         ) : searchTerm.length > 0 ? (
           <div className="mainResults">
@@ -43,6 +45,7 @@ function App() {
                   className="searchResultImage"
                   src={`${base_url}${obj.poster_path}`}
                   key={obj.id}
+                  onError="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
                 />
               ))}
             </div>
@@ -53,7 +56,7 @@ function App() {
             <Route path="/details/:id" element={<MovieDetails />} />
             <Route path="/player/:id" element={<Player />} />
             <Route path="/login" element={<Login />} />
-            {/* <Route path="/list/:id" element={<MyList />} /> */}
+
             <Route path="/list" element={<MyList />} />
           </Routes>
         )}

@@ -39,6 +39,7 @@ function Row({ title, fetchUrl, isLargeRow, search, setSearch, pageNumber }) {
             src={`${base_url}${
               isLargeRow ? movie.poster_path : movie.backdrop_path
             }`}
+            onError="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
             alt={movie.name}
             onClick={() => handleClick(`${movie.id}`)}
           ></img>

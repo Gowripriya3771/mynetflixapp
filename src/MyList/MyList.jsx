@@ -1,12 +1,18 @@
 import { useNavigate } from "react-router-dom";
 import "./MyList.css";
+import { useEffect } from "react";
 function MyList() {
   let myListitem = [];
   myListitem = JSON.parse(sessionStorage.getItem("myListItem"));
+
   const navigate = useNavigate();
   function handleCloseIcon(posterItem) {
-    myListitem.filter((item) => item !== posterItem);
+    let updatedmyList = myListitem.filter((item) => item !== posterItem);
+
+    sessionStorage.setItem("myListItem", JSON.stringify([...updatedmyList]));
+    window.location.reload();
   }
+
   function handleEmptyList() {
     navigate("/");
   }
@@ -17,12 +23,15 @@ function MyList() {
       <div className="myListContainers">
         {myListitem.length === 0 ? (
           <div className="emptylist">
-            <img src="https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-8044861-6430770.png" alt="hhh"></img>
+            <img
+              src="https://cdni.iconscout.com/illustration/premium/thumb/product-is-empty-8044861-6430770.png"
+              alt="hhh"
+            ></img>
             <div className="emptydiv">
-            <h1>Empty List!</h1>
-            <p>Looks like you haven&apos;t added anything to your list</p>
-            
-            <button onClick={handleEmptyList}>Browse +</button>
+              <h1>Empty List!</h1>
+              <p>Looks like you haven&apos;t added anything to your list</p>
+
+              <button onClick={handleEmptyList}>Browse +</button>
             </div>
           </div>
         ) : (
