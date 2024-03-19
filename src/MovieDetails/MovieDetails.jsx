@@ -22,10 +22,10 @@ function MovieDetails() {
   // const getList = sessionStorage.getItem("myListItem");
   // const getListItem=JSON.parse(getList)
   const [myList, setMyList] = useState([]);
-  function handleTestbutton() {
-    // navigated(`/list/${id}`);
-    navigated("/list")
-  }
+  // function handleTestbutton() {
+  //   // navigated(`/list/${id}`);
+  //   navigated("/list")
+  // }
 
   function handleListClick(poster) {
     // spread operator to get the past datas from the array
@@ -113,6 +113,7 @@ function MovieDetails() {
         }}
       >
         <div className="details-contents">
+          <div className="spacing-div">
           <h1 className="titleMovies">{details?.title || details?.name}</h1>
           <div
             className="movieRating"
@@ -159,8 +160,9 @@ function MovieDetails() {
               basedOn="letters"
             />
           </p>
+          </div>
         </div>
-        <div>
+        <div className="cast-div">
           <h3>
             Cast:
             {credits?.cast
@@ -204,7 +206,7 @@ function MovieDetails() {
                   className="listImages"
                   key={item}
                   src={item}
-                  //here if we give a function to get the details when clicked on mylist as mylist doesnt contain the id it cant be navigate
+                  //here if we give a function to get the details when clicked on mylist as mylist doesnt contain the id it cant be navigated
                 />
               </div>
             ))}

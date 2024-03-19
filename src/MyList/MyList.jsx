@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import "./MyList.css";
-import { useEffect } from "react";
+
 function MyList() {
   let myListitem = [];
   myListitem = JSON.parse(sessionStorage.getItem("myListItem"));
