@@ -109,57 +109,60 @@ function MovieDetails() {
       <header
         className="detailsBanner"
         style={{
+          // opacity:"0.3",
           backgroundImage: `url(${base_url}${details.backdrop_path})`,
         }}
       >
         <div className="details-contents">
           <div className="spacing-div">
-          <h1 className="titleMovies">{details?.title || details?.name}</h1>
-          <div
-            className="movieRating"
-            style={{ display: "flex", flexDirection: "row", gap: "10px" }}
-          >
-            <span className="material-symbols-outlined">star</span>
-            <h3>{details.vote_average}</h3>
-
-            <h3>{details.runtime}min</h3>
-            <h3>{movieYear}</h3>
-          </div>
-
-          <div className="genre">
-            <h1>
-              Genre: {details?.genres?.map((item) => item.name).join(",")}
+            <h1 className="titleMovies" style={{ opacity: 1 }}>
+              {details?.title || details?.name}
             </h1>
-          </div>
-
-          <div></div>
-
-          <div className="buttons">
-            <button className="playButton" onClick={handlePlayButton}>
-              Play
-            </button>
-
-            <button
-              onClick={() =>
-                handleListClick(`${base_url}${details.poster_path}`)
-              }
-              className="listButton"
+            <div
+              className="movieRating"
+              style={{ display: "flex", flexDirection: "row", gap: "10px" }}
             >
-              My List
-            </button>
+              <span className="material-symbols-outlined">star</span>
+              <h3>{details.vote_average}</h3>
 
-            {/* <button onClick={handleTestbutton}>My List 2</button> */}
-          </div>
-          <p className="overview">
-            {/* an external react package used for setting max line in description */}
-            <LinesEllipsis
-              text={details.overview}
-              maxLine="3"
-              ellipsis="..."
-              trimRight
-              basedOn="letters"
-            />
-          </p>
+              <h3>{details.runtime}min</h3>
+              <h3>{movieYear}</h3>
+            </div>
+
+            <div className="genre">
+              <h1>
+                Genre: {details?.genres?.map((item) => item.name).join(",")}
+              </h1>
+            </div>
+
+            {/* <div></div> */}
+
+            <div className="buttons">
+              <button className="playButton" onClick={handlePlayButton}>
+                Play
+              </button>
+
+              <button
+                onClick={() =>
+                  handleListClick(`${base_url}${details.poster_path}`)
+                }
+                className="listButton"
+              >
+                My List
+              </button>
+
+              {/* <button onClick={handleTestbutton}>My List 2</button> */}
+            </div>
+            <p className="overview">
+              {/* an external react package used for setting max line in description */}
+              <LinesEllipsis
+                text={details.overview}
+                maxLine="3"
+                ellipsis="..."
+                trimRight
+                basedOn="letters"
+              />
+            </p>
           </div>
         </div>
         <div className="cast-div">
@@ -202,12 +205,7 @@ function MovieDetails() {
                 >
                   X
                 </button>
-                <img
-                  className="listImages"
-                  key={item}
-                  src={item}
-                  //here if we give a function to get the details when clicked on mylist as mylist doesnt contain the id it cant be navigated
-                />
+                <img className="listImages" key={item} src={item} />
               </div>
             ))}
         </div>

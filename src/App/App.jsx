@@ -9,6 +9,7 @@ import Home from "../Home/Home";
 import { useState } from "react";
 import { base_url } from "../Row/Row";
 import MyList from "../MyList/MyList";
+import "./App.css";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -41,12 +42,14 @@ function App() {
             <h1>Search Results</h1>
             <div className="searchResults">
               {searchTerm?.map((obj) => (
+                <div key={obj.id} className="searchBox">
                 <img
                   className="searchResultImage"
                   src={`${base_url}${obj.poster_path}`}
                   key={obj.id}
                   onError="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
-                />
+                /><h1 className="objtitle">{obj.title}</h1>
+                </div>
               ))}
             </div>
           </div>

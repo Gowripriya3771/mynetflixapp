@@ -16,6 +16,8 @@ function Login() {
     ) {
       localStorage.setItem("emailData", "abc@gmail.com");
       localStorage.setItem("passwordData", "12345");
+    }else{
+      alert("Invalid username or password")
     }
   };
 

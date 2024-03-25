@@ -28,10 +28,10 @@ function MyList() {
               alt="hhh"
             ></img>
             <div className="emptydiv">
-              <h1>Empty List!</h1>
+              <h1>Your list is empty!</h1>
               <p>Looks like you haven&apos;t added anything to your list</p>
 
-              <button onClick={handleEmptyList}>Browse +</button>
+              <button className="browsebutton" onClick={handleEmptyList}>Browse</button>
             </div>
           </div>
         ) : (

@@ -99,6 +99,9 @@ border-top-color: black;
   border-radius: 5px;
   border: 1.5px solid white;
 }
+.similarImages:hover{
+  cursor: pointer;
+}
 .myListContainer {
   display: flex;
   flex-direction: row;
